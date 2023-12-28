@@ -21,7 +21,7 @@ apt-get -y --purge remove sendmail*;
 apt-get -y --purge remove bind9*;
 
 #install package
-apt-get install sudo htop socat screen net-tools cron neofetch nginx -y
+apt-get install sudo curl htop socat screen net-tools cron neofetch nginx -y
 
 #install speedtest
 curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
