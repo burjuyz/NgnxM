@@ -21,7 +21,7 @@ apt-get -y --purge remove sendmail*;
 apt-get -y --purge remove bind9*;
 
 #install package
-apt-get install sudo curl htop socat screen net-tools cron neofetch nginx -y
+apt-get install sudo curl htop socat screen net-tools cron neofetch -y
 
 #install speedtest
 curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
@@ -30,7 +30,8 @@ sudo apt-get install speedtest -y
 #install marzban
 sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
 
-#configure nginx
+#install nginx
+apt-get install nginx
 wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/nginx.conf"
 wget -O /etc/nginx/conf.d/xray.conf "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/xray.conf"
 systemctl enable nginx && systemctl start nginx
