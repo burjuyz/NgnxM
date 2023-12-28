@@ -47,3 +47,4 @@ systemctl start nginx
 #さいごだ
 apt autoremove -y && apt clean
 cd /opt/marzban && docker compose down && docker compose up -d
+marzban cli admin create --sudo
