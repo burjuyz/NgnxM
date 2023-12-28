@@ -34,15 +34,14 @@ sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/
 apt-get install nginx -y
 wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/nginx.conf"
 wget -O /etc/nginx/conf.d/xray.conf "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/xray.conf"
-systemctl enable nginx && systemctl start nginx
+systemctl stop nginx
 
 #install cert
-systemctl stop nginx
 curl https://get.acme.sh | sh -s email=$email
 /root/.acme.sh/acme.sh --server letsencrypt --register-account -m $email --issue -d $domain --standalone -k ec-256
 ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /var/lib/marzban/xray.crt --keypath /var/lib/marzban/xray.key --ecc
-systemctl start nginx
 wget -O /var/lib/marzban/xray_config.json "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/xray_config.json"
+systemctl start nginx
 
 #さいごだ
 apt autoremove -y && apt clean
