@@ -31,7 +31,7 @@ sudo apt-get install speedtest -y
 sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
 
 #install nginx
-apt-get install nginx
+apt-get install nginx -y
 wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/nginx.conf"
 wget -O /etc/nginx/conf.d/xray.conf "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/xray.conf"
 systemctl enable nginx && systemctl start nginx
@@ -47,4 +47,3 @@ wget -O /var/lib/marzban/xray_config.json "https://raw.githubusercontent.com/v1n
 #さいごだ
 apt autoremove -y && apt clean
 cd /opt/marzban && docker compose down && docker compose up -d
-cd $HOME && rm /root/install.sh
