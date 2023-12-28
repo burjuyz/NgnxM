@@ -12,20 +12,20 @@ read -rp "Masukkan Email anda: " email
 timedatectl set-timezone Asia/Jakarta
 
 #preparation
-apt-get update
+apt update
 
 #remove unused package
-apt-get -y --purge remove samba*;
-apt-get -y --purge remove apache2*;
-apt-get -y --purge remove sendmail*;
-apt-get -y --purge remove bind9*;
+apt -y --purge remove samba*;
+apt -y --purge remove apache2*;
+apt -y --purge remove sendmail*;
+apt -y --purge remove bind9*;
 
 #install package
-apt-get install sudo curl htop socat screen net-tools cron neofetch nginx -y
+apt install sudo curl htop socat screen net-tools cron neofetch nginx -y
 
 #install speedtest
 curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
-sudo apt-get install speedtest -y
+sudo apt install speedtest -y
 
 #install marzban
 sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
