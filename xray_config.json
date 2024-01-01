@@ -4,35 +4,6 @@
     "error": "/var/lib/marzban/error.log",
     "loglevel": "warning"
   },
-  "dns": {
-    "servers": [
-      "1.1.1.1",
-      "1.0.0.1",
-      "8.8.8.8",
-      "8.8.4.4",
-      "127.0.0.1"
-    ],
-    "tag": "dns-in"
-  },
-  "routing": {
-    "domainStrategy": "IPIfNonMatch",
-    "rules": [
-      {
-        "type": "field",
-        "inboundTag": [
-          "dns-in"
-        ],
-        "outboundTag": "dns-out"
-      },
-      {
-        "type": "field",
-        "protocol": [
-          "bittorent"
-        ],
-        "outboundTag": "block"
-      }
-    ]
-  },
   "inbounds": [
     {
       "tag": "VMESS_WS",
@@ -230,31 +201,37 @@
   ],
   "outbounds": [
     {
-      "tag": "direct",
       "protocol": "freedom",
-      "settings": {
-        "domainStrategy": "UseIPv4"
-      }
+      "tag": "DIRECT"
     },
     {
       "protocol": "blackhole",
-      "settings": {},
-      "tag": "block"
-    },
-    {
-      "protocol": "dns",
-      "settings": {
-        "nonIPQuery": "skip"
-      },
-      "tag": "dns-out"
+       "tag": "BLOCK"
     }
   ],
-  "policy": {
-    "levels": {
-      "0": {
-        "handshake": 2,
-        "connIdle": 120
+  "routing": {
+    "rules": [
+      {
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "BLOCK",
+        "type": "field"
+      },
+      {
+        "domain": [
+          "geosite:private"
+        ],
+        "outboundTag": "BLOCK",
+        "type": "field"
+      },
+      {
+        "protocol": [
+          "bittorrent"
+        ],
+        "outboundTag": "BLOCK",
+        "type": "field"
       }
-    }
+    ]
   }
 }
