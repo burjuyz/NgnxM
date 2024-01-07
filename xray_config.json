@@ -4,6 +4,12 @@
     "error": "/var/lib/marzban/error.log",
     "loglevel": "warning"
   },
+  "dns": {
+    "servers": [
+      "8.8.8.8",
+      "8.8.8.8"
+    ]
+  },
   "inbounds": [
     {
       "tag": "VMESS_WS",
@@ -199,39 +205,49 @@
       }
     }
   ],
-  "outbounds": [
+  "outbounds":[
     {
-      "protocol": "freedom",
-      "tag": "DIRECT"
+      "protocol":"freedom",
+      "settings":{
+        "domainStrategy":"UseIPv4"
+      },
+      "tag":"IPv4-out"
     },
     {
-      "protocol": "blackhole",
-       "tag": "BLOCK"
+      "protocol":"freedom",
+      "settings":{
+        "domainStrategy":"UseIPv6"
+      },
+      "tag":"IPv6-out"
+    },
+    {
+      "protocol":"freedom",
+      "settings": {},
+      "tag":"direct"
+    },
+    {
+      "protocol":"blackhole",
+      "tag":"blackhole-out"
     }
   ],
   "routing": {
     "rules": [
       {
-        "ip": [
-          "geoip:private"
-        ],
-        "outboundTag": "BLOCK",
-        "type": "field"
-      },
-      {
+        "type": "field",
         "domain": [
-          "geosite:private"
+          "domain:gstatic.com",
+          "domain:googleapis.com"
         ],
-        "outboundTag": "BLOCK",
-        "type": "field"
-      },
-      {
-        "protocol": [
-          "bittorrent"
-        ],
-        "outboundTag": "BLOCK",
-        "type": "field"
+        "outboundTag": "direct"
       }
     ]
+  },
+  "policy": {
+    "levels": {
+      "0": {
+        "handshake": 2,
+        "connIdle": 260
+      }
+    }
   }
 }
