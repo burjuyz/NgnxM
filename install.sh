@@ -30,19 +30,27 @@ sudo apt-get install speedtest -y
 #install marzban
 sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
 marzban down
+wget -O /var/lib/marzban/xray_config.json "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/xray_config.json"
+wget -O /opt/marzban/.env "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/.env"
+wget -O /opt/marzban/docker-compose.yml "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/docker-compose.yml"
 
 #install cert
 curl https://get.acme.sh | sh -s email=$email
 /root/.acme.sh/acme.sh --server letsencrypt --register-account -m $email --issue -d $domain --standalone -k ec-256
 ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /var/lib/marzban/xray.crt --keypath /var/lib/marzban/xray.key --ecc
-wget -O /var/lib/marzban/xray_config.json "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/xray_config.json"
 
 #install nginx
 apt-get install nginx -y
 systemctl stop nginx
-wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/nginx.conf"
 wget -O /etc/nginx/conf.d/xray.conf "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/xray.conf"
+sed -i "s|domain.com|$domain|g" /etc/nginx/conf.d/xray.conf
+rm -f /etc/nginx/sites-available/*
+rm -f /etc/nginx/sites-enabled/*
 systemctl start nginx
+
+#install menu
+wget -O /usr/bin/menu "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/menu/menu.sh" && chmod +x /usr/bin/menu
+wget -O /usr/bin/xraylog "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/menu/xraylog.sh" && chmod +x /usr/bin/xraylog
 
 #さいごだ
 apt autoremove -y && apt clean
