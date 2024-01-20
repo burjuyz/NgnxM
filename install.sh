@@ -21,11 +21,13 @@ apt-get -y --purge remove sendmail*;
 apt-get -y --purge remove bind9*;
 
 #install package
-apt-get install sudo curl htop socat screen net-tools cron neofetch -y
+apt-get install sudo curl htop socat screen net-tools cron psmisc -y
 
 #install speedtest
-curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
-sudo apt-get install speedtest -y
+wget https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz && tar -xvf *.tgz -C /usr/bin/ && chmod +x /usr/bin/speedtest && rm -r /usr/bin/speedtest.*
+
+#install neofetch
+wget -O /usr/bin/neofetch "https://raw.githubusercontent.com/dylanaraps/neofetch/master/neofetch" && chmod +x /usr/bin/neofetch
 
 #install marzban
 sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
@@ -51,6 +53,14 @@ systemctl start nginx
 #install menu
 wget -O /usr/bin/menu "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/menu/menu.sh" && chmod +x /usr/bin/menu
 wget -O /usr/bin/xraylog "https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/menu/xraylog.sh" && chmod +x /usr/bin/xraylog
+
+#enable cronjob
+cat > /etc/cron.d/custom << END
+0 0 * * * root /sbin/shutdown -r now
+0 */3 * * * root killall xray
+@reboot root marzban restart
+@reboot root rm -r /var/lib/marzban/access.log
+END
 
 #さいごだ
 apt autoremove -y && apt clean
