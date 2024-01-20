@@ -4,7 +4,7 @@
 |---------- |--------|
 | Vmess WS CDN TLS | 443 |
 | Vmess WS nonTLS | 80 |
-| Vmess gRPC  | 443 |
+| Vmess gRPC TLS  | 443 |
 | Vless WS CDN TLS  | 443 |
 | Vless WS nonTLS  | 80 |
 | Vless gRPC TLS | 443 |
