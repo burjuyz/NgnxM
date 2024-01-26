@@ -1,15 +1,15 @@
 #!/bin/bash
 
 #domain
-read -rp "Masukkan Domain: " domain
+read -rp "Enter your domain: " domain
 echo "$domain" > /root/domain
 domain=$(cat /root/domain)
 
 #email
-read -rp "Masukkan Email anda: " email
+read -rp "Enter your Email: " email
 
-#set Timezone GMT+7
-timedatectl set-timezone Asia/Jakarta
+#set Timezone GMT+3
+timedatectl set-timezone Europe/Moscow
 
 #preparation
 apt-get update
@@ -22,12 +22,6 @@ apt-get -y --purge remove bind9*;
 
 #install package
 apt-get install sudo curl htop socat screen net-tools cron psmisc -y
-
-#install speedtest
-wget https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz && tar -xvf *.tgz -C /usr/bin/ && chmod +x /usr/bin/speedtest && rm -r /usr/bin/speedtest.*
-
-#install neofetch
-wget -O /usr/bin/neofetch "https://raw.githubusercontent.com/dylanaraps/neofetch/master/neofetch" && chmod +x /usr/bin/neofetch
 
 #install marzban
 sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
