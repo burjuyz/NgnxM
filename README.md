@@ -18,5 +18,5 @@
 
 # Install
 ```
-bash -c "$(wget -qO- https://raw.githubusercontent.com/v1nch3r/MarzbanX/main/install.sh)"
+bash -c "$(wget -qO- https://raw.githubusercontent.com/burjuyz/MarzbanNX/main/install.sh)"
 ```
