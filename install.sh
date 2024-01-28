@@ -14,12 +14,6 @@ timedatectl set-timezone Europe/Moscow
 #preparation
 apt-get update
 
-#remove unused package
-apt-get -y --purge remove samba*;
-apt-get -y --purge remove apache2*;
-apt-get -y --purge remove sendmail*;
-apt-get -y --purge remove bind9*;
-
 #install package
 apt-get install sudo curl htop socat screen net-tools cron psmisc -y
 
