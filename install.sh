@@ -48,15 +48,10 @@ systemctl start nginx
 wget -O /usr/bin/menu "https://raw.githubusercontent.com/burjuyz/MarzbanNX/main/menu/menu.sh" && chmod +x /usr/bin/menu
 wget -O /usr/bin/xraylog "https://raw.githubusercontent.com/burjuyz/MarzbanNX/main/menu/xraylog.sh" && chmod +x /usr/bin/xraylog
 
-#enable cronjob
-cat > /etc/cron.d/custom << END
-0 0 * * * root /sbin/shutdown -r now
-0 */3 * * * root killall xray
-@reboot root marzban restart
-@reboot root rm -r /var/lib/marzban/access.log
-END
 
-#さいごだ
+#cleanup
 apt autoremove -y && apt clean
+
+#admincreate
 cd /opt/marzban && docker compose down && docker compose up -d
 marzban cli admin create --sudo
