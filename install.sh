@@ -20,9 +20,9 @@ apt-get install sudo curl htop socat screen net-tools cron psmisc -y
 #install marzban
 sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
 marzban down
-wget -O /var/lib/marzban/xray_config.json "https://raw.githubusercontent.com/burjuyz/MarzbanNX/main/xray_config.json"
-wget -O /opt/marzban/.env "https://raw.githubusercontent.com/burjuyz/MarzbanNX/main/.env"
-wget -O /opt/marzban/docker-compose.yml "https://raw.githubusercontent.com/burjuyz/MarzbanNX/main/docker-compose.yml"
+wget -O /var/lib/marzban/xray_config.json "https://raw.githubusercontent.com/burjuyz/NgnxM/main/xray_config.json"
+wget -O /opt/marzban/.env "https://raw.githubusercontent.com/burjuyz/NgnxM/main/.env"
+wget -O /opt/marzban/docker-compose.yml "https://raw.githubusercontent.com/burjuyz/NgnxM/main/docker-compose.yml"
 
 #install cert
 curl https://get.acme.sh | sh -s email=$email
@@ -32,15 +32,15 @@ curl https://get.acme.sh | sh -s email=$email
 #install nginx
 apt-get install nginx -y
 systemctl stop nginx
-wget -O /etc/nginx/conf.d/xray.conf "https://raw.githubusercontent.com/burjuyz/MarzbanNX/main/xray.conf"
+wget -O /etc/nginx/conf.d/xray.conf "https://raw.githubusercontent.com/burjuyz/NgnxM/main/xray.conf"
 sed -i "s|domain.com|$domain|g" /etc/nginx/conf.d/xray.conf
 rm -f /etc/nginx/sites-available/*
 rm -f /etc/nginx/sites-enabled/*
 systemctl start nginx
 
 #install menu
-wget -O /usr/bin/menu "https://raw.githubusercontent.com/burjuyz/MarzbanNX/main/menu/menu.sh" && chmod +x /usr/bin/menu
-wget -O /usr/bin/xraylog "https://raw.githubusercontent.com/burjuyz/MarzbanNX/main/menu/xraylog.sh" && chmod +x /usr/bin/xraylog
+wget -O /usr/bin/menu "https://raw.githubusercontent.com/burjuyz/NgnxM/main/menu/menu.sh" && chmod +x /usr/bin/menu
+wget -O /usr/bin/xraylog "https://raw.githubusercontent.com/burjuyz/NgnxM/main/menu/xraylog.sh" && chmod +x /usr/bin/xraylog
 
 
 #cleanup
